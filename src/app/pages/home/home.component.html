@@ -1,0 +1,10 @@
+<div class="card mt-4">
+    <h4 class="card-header "  style="text-align: center;">You're logged in</h4>
+    <div class="card-body">
+        <h6>Datacenters from secure api end point</h6>
+        <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+        <ul *ngIf="datacenters.data">
+            <li *ngFor="let center of datacenters.data">{{center.name}} {{center.provide}}</li>
+        </ul>
+    </div>
+</div>
