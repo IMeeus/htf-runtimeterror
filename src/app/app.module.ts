@@ -5,7 +5,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { TestComponent } from './test/test.component';
+import { TestComponent } from './components/test/test.component';
+import { ApiService } from './services/api.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { TestComponent } from './test/test.component';
       { path: '', redirectTo: 'test', pathMatch: 'full' }
     ])
   ],
-  providers: [],
+  providers: [
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
