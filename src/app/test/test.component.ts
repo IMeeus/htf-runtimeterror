@@ -16,7 +16,13 @@ export class TestComponent implements OnInit {
 
   }
 
-  click() {
+  login() {
+    this.apiSvc.Login().subscribe(res => {
+      console.log(res);
+    })
+  }
+
+  datacenters() {
     this.apiSvc.GetDatacenters().subscribe(res => {
       console.log(res);
     })
