@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 
 @Injectable({
   providedIn: 'root'
@@ -24,19 +25,26 @@ export class ApiService {
     })
   }
 
-  GetDatacenters(): Observable<IGetDataCentersResponse> {
+  GetDatacenters(): Promise<IGetDataCentersResponse> {
     let access_token = this.cookieSvc.get('access_token');
     return this.http.get<IGetDataCentersResponse>(`https://htf2020.zinderlabs.com/api/datacenters`, 
       { headers: { 'Authorization':`Bearer ${access_token}` } 
-    });
+    }).toPromise();
   }
 
-  GetErrorCenter(id: number) {​​
+  GetErrorCenter(id: number): Promise<IGetErrorsResponse> {
     let access_token = this.cookieSvc.get('access_token');
-    return this.http.get(`https://htf2020.zinderlabs.com/api/datacenters/${​​id}​​/errors`, {​​
-      headers: {​​'Authorization': `Bearer ${access_token}​​` }​​
-    }​​);
-  }​​
+    return this.http.get<IGetErrorsResponse>(`https://htf2020.zinderlabs.com/api/datacenters/${id}/errors`, 
+      { headers: { 'Authorization':`Bearer ${access_token}` } 
+    }).toPromise();
+  }
+
+  IsolateDatacenter(id: number): Promise<IIsolateDatacenterResponse> {
+    let access_token = this.cookieSvc.get('access_token');
+    return this.http.post<IIsolateDatacenterResponse>(`https://htf2020.zinderlabs.com/api/datacenters/${id}/isolate`, {},
+      { headers: { 'Authorization':`Bearer ${access_token}` }
+    }).toPromise();
+  }
 }
 
 interface ILoginResponse {
@@ -65,4 +73,19 @@ export interface IDataCenter {
 export interface ILocation {
   lat: number,
   long: number
+}
+
+export interface IGetErrorsResponse {
+  data: IError[]
+}
+
+export interface IError {
+  createdAt: Date,
+  datacenterId: number,
+  errorTypeId: number,
+  errorTypeLabel: string
+}
+
+export interface IIsolateDatacenterResponse {
+  message: string
 }

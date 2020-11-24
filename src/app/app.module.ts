@@ -9,7 +9,6 @@ import { DataViewModule } from 'primeng/dataview';
 import { CardModule } from 'primeng/card';
 
 import { AppComponent } from './app.component';
-import { TestComponent } from './components/test/test.component';
 
 import { ApiService } from './services/api.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -18,7 +17,6 @@ import { DatagridComponent } from './components/datagrid/datagrid.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent,
     DatagridComponent
   ],
   imports: [
@@ -28,7 +26,6 @@ import { DatagridComponent } from './components/datagrid/datagrid.component';
     DataViewModule,
     CardModule,
     RouterModule.forRoot([
-      { path: 'test', component: TestComponent },
       { path: 'datagrid', component: DatagridComponent },
       { path: '', redirectTo: 'test', pathMatch: 'full' }
     ])

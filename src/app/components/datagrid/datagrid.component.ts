@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, IDataCenter } from '../../services/api.service';
+import { ApiService, IDataCenter, IError } from '../../services/api.service';
 
 @Component({
   selector: 'app-datagrid',
@@ -7,14 +7,38 @@ import { ApiService, IDataCenter } from '../../services/api.service';
   styleUrls: ['./datagrid.component.css']
 })
 export class DatagridComponent implements OnInit {
-  datacenters: IDataCenter[];
+  items: IItem[] = [];
 
   constructor(
     private apiSvc: ApiService
   ) { }
 
   ngOnInit(): void {
-    this.apiSvc.GetDatacenters().subscribe(res => this.datacenters = res.data);
+    this.loadGridItems();
   }
 
+  async loadGridItems() {
+    let centers = await this.apiSvc.GetDatacenters();
+
+    for (let i = 0; i < centers.data.length; i++) {
+      let center = centers.data[i];
+      let errors = await this.apiSvc.GetErrorCenter(center.id);
+      let newItem: IItem = { datacenter: center, errors: errors.data };
+      this.items = [...this.items, newItem];
+    }
+  }
+
+  click() {
+    console.log(this.items);
+  }
+
+  async IsolateDatacenter(id: number) {
+    let response = await this.apiSvc.IsolateDatacenter(id);
+    this.loadGridItems();
+  }
+}
+
+export interface IItem {
+  datacenter: IDataCenter,
+  errors: IError[]
 }
