@@ -17,10 +17,10 @@ CLick
                         </div>
                         <div style="margin-top: 10px;">
                             <div *ngIf="item.inIsolation; else otherButton">
-                                <button pButton type="button" label="Deisolate" class="p-button-success p-button-outlined" (click)="IsolateDatacenter(item.datacenter.id)"></button>
+                                <button pButton type="button" label="Deisolate" class="p-button-success p-button-outlined" (click)="IsolateDatacenter(item.id)"></button>
                             </div>
                             <ng-template #otherButton>
-                                <button pButton type="button" label="Isolate" class="p-button-danger p-button-outlined" (click)="IsolateDatacenter(item.datacenter.id)"></button>
+                                <button pButton type="button" label="Isolate" class="p-button-danger p-button-outlined" (click)="IsolateDatacenter(item.id)"></button>
                             </ng-template>
                         </div>
                     </div>

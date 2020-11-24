@@ -17,6 +17,11 @@ export class DatagridComponent implements OnInit {
     this.loadGridItems();
   }
 
+  reloadGridItems() {
+    this.items = [];
+    this.loadGridItems();
+  }
+
   async loadGridItems() {
     let centers = await this.apiSvc.GetDatacenters();
 
@@ -41,7 +46,7 @@ export class DatagridComponent implements OnInit {
 
   async IsolateDatacenter(id: number) {
     let response = await this.apiSvc.IsolateDatacenter(id);
-    this.loadGridItems();
+    this.reloadGridItems();
   }
 }
 
