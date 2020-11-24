@@ -23,7 +23,14 @@ export class DatagridComponent implements OnInit {
     for (let i = 0; i < centers.data.length; i++) {
       let center = centers.data[i];
       let errors = await this.apiSvc.GetErrorCenter(center.id);
-      let newItem: IItem = { datacenter: center, errors: errors.data };
+
+      let newItem: IItem = { 
+        id: center.id,
+        name: center.name,
+        inIsolation: center.inIsolation,
+        errorAmount: errors.meta.pagination.total
+      };
+
       this.items = [...this.items, newItem];
     }
   }
@@ -39,6 +46,8 @@ export class DatagridComponent implements OnInit {
 }
 
 export interface IItem {
-  datacenter: IDataCenter,
-  errors: IError[]
+  id: number,
+  name: string,
+  inIsolation: boolean,
+  errorAmount: number
 }

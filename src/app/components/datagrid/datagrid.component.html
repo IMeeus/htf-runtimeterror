@@ -10,13 +10,13 @@ CLick
                     <div style="text-align: center;">
                         <img alt="Datacenter" width="100" height="100" src="../../../assets/datacenter.png">
                         <div>
-                            {{item.datacenter.name}}
+                            {{item.name}}
                         </div>
                         <div>
-                            Errors: {{item.errors.length}}
+                            Errors: {{item.errorAmount}}
                         </div>
                         <div style="margin-top: 10px;">
-                            <div *ngIf="item.datacenter.inIsolation; else otherButton">
+                            <div *ngIf="item.inIsolation; else otherButton">
                                 <button pButton type="button" label="Deisolate" class="p-button-success p-button-outlined" (click)="IsolateDatacenter(item.datacenter.id)"></button>
                             </div>
                             <ng-template #otherButton>
