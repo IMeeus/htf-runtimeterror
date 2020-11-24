@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, IDataCenter, IError } from '../../services/api.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-datagrid',
@@ -17,12 +17,12 @@ export class DatagridComponent implements OnInit {
     this.loadItems();
   }
 
-  reloadItems() {
+  private reloadItems() {
     this.items = [];
     this.loadItems();
   }
 
-  async loadItems() {
+  private async loadItems() {
     let centers = await this.apiSvc.GetDatacenters();
 
     for (let i = 0; i < centers.data.length; i++) {
@@ -43,6 +43,10 @@ export class DatagridComponent implements OnInit {
   
   async IsolateDatacenter(id: number) {
     let response = await this.apiSvc.IsolateDatacenter(id);
+    this.reloadItems();
+  }
+
+  Refresh() {
     this.reloadItems();
   }
 }

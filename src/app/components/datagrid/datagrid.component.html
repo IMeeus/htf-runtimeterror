@@ -1,7 +1,15 @@
 <p-dataView [value]="items" layout="grid" [sortOrder]="">
     <p-header>
-        <div style="text-align: center;">
-            Data Centers
+        <div class="flexcontainer">
+            <div>
+            
+            </div>
+            <div style="text-align: center;">
+                Data Centers
+            </div>
+            <div>
+                <button pButton type="button" label="Refresh" class="p-button-info" (click)="Refresh()"></button>
+            </div>
         </div>
     </p-header>
     <ng-template let-item pTemplate="gridItem">
