@@ -26,6 +26,15 @@ export class ApiService {
     // const headers = new HttpHeaders({ 'Authorization': `Bearer ${this.authtoken}` })
     return this.http.get(`https://htf2020.zinderlabs.com/api/datacenters`, {headers: { 'Authorization': `Bearer ${this.authtoken}` }});
   }
+
+  GetErrorCenter(id){
+    let headers = new HttpHeaders();
+    headers.set('Authorization', `Bearer ${this.authtoken}` );
+    console.log(headers);
+
+    return this.http.get(`https://htf2020.zinderlabs.com/api/datacenters/${id}/errors`, {headers: { 'Authorization': `Bearer ${this.authtoken}` }});
+
+  }
 }
 
 interface ILogin {
