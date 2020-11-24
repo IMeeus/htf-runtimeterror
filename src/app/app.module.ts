@@ -20,6 +20,7 @@ import { ErrorInterceptor } from './_helpers/error.intercepter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarkerService } from './services/marker.service';
 import { DatagridComponent } from './components/datagrid/datagrid.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -28,7 +29,8 @@ import { DatagridComponent } from './components/datagrid/datagrid.component';
     MapComponent,
     LoginComponent,
     HomeComponent,
-    DatagridComponent
+    DatagridComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

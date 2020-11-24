@@ -1,8 +1,9 @@
-<button (click)="click()">
-CLick
-</button>
-
-<p-dataView [value]="items" layout="grid">
+<p-dataView [value]="items" layout="grid" [sortOrder]="">
+    <p-header>
+        <div style="text-align: center;">
+            Data Centers
+        </div>
+    </p-header>
     <ng-template let-item pTemplate="gridItem">
         <div class="p-col-12 p-md-4">
             <div style="margin: 5px;">

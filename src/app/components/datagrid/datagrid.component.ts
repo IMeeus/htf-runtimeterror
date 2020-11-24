@@ -14,15 +14,15 @@ export class DatagridComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadGridItems();
+    this.loadItems();
   }
 
-  reloadGridItems() {
+  reloadItems() {
     this.items = [];
-    this.loadGridItems();
+    this.loadItems();
   }
 
-  async loadGridItems() {
+  async loadItems() {
     let centers = await this.apiSvc.GetDatacenters();
 
     for (let i = 0; i < centers.data.length; i++) {
@@ -37,16 +37,13 @@ export class DatagridComponent implements OnInit {
       };
 
       this.items = [...this.items, newItem];
+      // this.items = this.sort([...this.items, newItem]);
     }
   }
-
-  click() {
-    console.log(this.items);
-  }
-
+  
   async IsolateDatacenter(id: number) {
     let response = await this.apiSvc.IsolateDatacenter(id);
-    this.reloadGridItems();
+    this.reloadItems();
   }
 }
 
