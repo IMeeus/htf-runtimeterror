@@ -6,7 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TestComponent } from './components/test/test.component';
+
 import { ApiService } from './services/api.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { ApiService } from './services/api.service';
     ])
   ],
   providers: [
-    ApiService
+    ApiService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

@@ -20,9 +20,7 @@ export class TestComponent implements OnInit {
   public Datacenters;
   public Errors;
   login() {
-    this.apiSvc.Login().subscribe(res => {
-      console.log(res);
-    })
+    this.apiSvc.Login();
   }
 
   datacenters() {
@@ -45,26 +43,3 @@ export class TestComponent implements OnInit {
 
 
 }
-
-// export class DataCenter{
-//   id:number;
-//   inIsolation: boolean;
-//   location: {
-//     lat: number
-//     lng: number
-//   }
-//   name: string
-//   provider : string
-// }
-
-// export class Error{
-//   createdAt: Date;
-//   datacenterId: boolean;
-//   location: {
-//     lat: number
-//     lng: number
-//   }
-//   name: string
-//   provider : string
-// }
-
