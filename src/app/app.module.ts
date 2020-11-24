@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 
 import { ApiService } from './services/api.service';
 import { CookieService } from 'ngx-cookie-service';
-import { IgxDataChartInteractivityModule } from 'igniteui-angular-charts';
 import { MapComponent } from './pages/map/map.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -26,10 +25,9 @@ import { DatagridComponent } from './components/datagrid/datagrid.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
-    TestComponent,
     MapComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
     DatagridComponent
   ],
   imports: [
@@ -41,15 +39,12 @@ import { DatagridComponent } from './components/datagrid/datagrid.component';
     DataViewModule,
     CardModule,
     RouterModule.forRoot([
-      { path: 'test', component: TestComponent },
       { path: 'map', component: MapComponent },
       { path: 'login', component: LoginComponent },
       { path: 'home', component: HomeComponent },
-
-      { path: '*', redirectTo: 'login', pathMatch: 'full' },
-      { path: '', redirectTo: 'login', pathMatch: 'full' }
       { path: 'datagrid', component: DatagridComponent },
-      { path: '', redirectTo: 'test', pathMatch: 'full' }
+      { path: '*', redirectTo: 'login', pathMatch: 'full' },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
     ])
   ],
   providers: [

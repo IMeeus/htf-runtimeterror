@@ -10,16 +10,14 @@ export class HomeComponent {
 
     constructor(private apisvc: ApiService) { }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.loading = true;
         // this.userService.getAll().pipe(first()).subscribe(users => {
         //     this.loading = false;
         //     this.users = users;
         // });
-        this.apisvc.GetDatacenters().pipe(first()).subscribe(centers => {
-          this.loading = false;
-          this.datacenters = centers;
-        })
+        this.datacenters = await this.apisvc.GetDatacenters();
+        this.loading = false;
     }
 }
 
