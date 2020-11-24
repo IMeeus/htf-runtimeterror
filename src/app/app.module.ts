@@ -4,8 +4,11 @@ import {CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'primeng/dataview';
+import { CardModule } from 'primeng/card';
+
 import { AppComponent } from './app.component';
-import { TestComponent } from './components/test/test.component';
 
 import { ApiService } from './services/api.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -17,6 +20,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.intercepter';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarkerService } from './services/marker.service';
+import { DatagridComponent } from './components/datagrid/datagrid.component';
+
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
@@ -25,12 +30,16 @@ import { MarkerService } from './services/marker.service';
     MapComponent,
     LoginComponent,
     HomeComponent
+    DatagridComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ButtonModule,
+    DataViewModule,
+    CardModule,
     RouterModule.forRoot([
       { path: 'test', component: TestComponent },
       { path: 'map', component: MapComponent },
@@ -39,6 +48,8 @@ import { MarkerService } from './services/marker.service';
 
       { path: '*', redirectTo: 'login', pathMatch: 'full' },
       { path: '', redirectTo: 'login', pathMatch: 'full' }
+      { path: 'datagrid', component: DatagridComponent },
+      { path: '', redirectTo: 'test', pathMatch: 'full' }
     ])
   ],
   providers: [

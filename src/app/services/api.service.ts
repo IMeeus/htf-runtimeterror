@@ -1,20 +1,17 @@
-import {
-  Injectable
-} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { environment } from 'src/environments/environment';
 import {
   HttpClient,
   HttpHeaders
 } from '@angular/common/http';
-import {
-  CookieService
-} from 'ngx-cookie-service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private authtoken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9odGYyMDIwLnppbmRlcmxhYnMuY29tXC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjA2MjEzMzI1LCJleHAiOjE2MDYzOTMzMjUsIm5iZiI6MTYwNjIxMzMyNSwianRpIjoiakxyNnV4eTBnVWdHUWJpciIsInN1YiI6OCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.xyJrpxDEFFPwEUFoOn9Q4kwuPpexxgQ-3WgjxIDoFpg"
 
   constructor(
     private http: HttpClient,
@@ -31,30 +28,25 @@ export class ApiService {
     })
   }
 
-  getAll() {
-    return this.http.get<IdataCenter[]>(`${environment.apiUrl}/datacenters`);
-}
-
-  GetDatacenters() {
+  GetDatacenters(): Promise<IGetDataCentersResponse> {
     let access_token = this.cookieSvc.get('access_token');
-    return this.http.get(`${environment.apiUrl}/datacenters`, {
-      headers: {
-        'Authorization': `Bearer ${access_token}`
-      }
-    });
+    return this.http.get<IGetDataCentersResponse>(`https://htf2020.zinderlabs.com/api/datacenters`, 
+      { headers: { 'Authorization':`Bearer ${access_token}` } 
+    }).toPromise();
   }
 
-  GetErrorCenter(id) {
-    let headers = new HttpHeaders();
-    headers.set('Authorization', `Bearer ${this.authtoken}`);
-    console.log(headers);
+  GetErrorCenter(id: number): Promise<IGetErrorsResponse> {
+    let access_token = this.cookieSvc.get('access_token');
+    return this.http.get<IGetErrorsResponse>(`https://htf2020.zinderlabs.com/api/datacenters/${id}/errors`, 
+      { headers: { 'Authorization':`Bearer ${access_token}` } 
+    }).toPromise();
+  }
 
-    return this.http.get(`${environment.apiUrl}/datacenters/${id}/errors`, {
-      headers: {
-        'Authorization': `Bearer ${this.authtoken}`
-      }
-    });
-
+  IsolateDatacenter(id: number): Promise<IIsolateDatacenterResponse> {
+    let access_token = this.cookieSvc.get('access_token');
+    return this.http.post<IIsolateDatacenterResponse>(`https://htf2020.zinderlabs.com/api/datacenters/${id}/isolate`, {},
+      { headers: { 'Authorization':`Bearer ${access_token}` }
+    }).toPromise();
   }
 }
 
@@ -69,13 +61,34 @@ export interface ILoginRequest {
     password: string
 }
 
-export interface IdataCenter {
+export interface IGetDataCentersResponse {
+  data: IDataCenter[];
+}
+
+export interface IDataCenter {
   id: number,
-    name: string
-    location: {
-      lat: number,
-      lng: number
-    },
-    provider: string,
-    inIsolation: boolean
+  name: string,
+  location: ILocation,
+  provider: string,
+  inIsolation: boolean
+}
+
+export interface ILocation {
+  lat: number,
+  long: number
+}
+
+export interface IGetErrorsResponse {
+  data: IError[]
+}
+
+export interface IError {
+  createdAt: Date,
+  datacenterId: number,
+  errorTypeId: number,
+  errorTypeLabel: string
+}
+
+export interface IIsolateDatacenterResponse {
+  message: string
 }

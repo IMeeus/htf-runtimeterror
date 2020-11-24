@@ -1,0 +1,31 @@
+<button (click)="click()">
+CLick
+</button>
+
+<p-dataView [value]="items" layout="grid">
+    <ng-template let-item pTemplate="gridItem">
+        <div class="p-col-12 p-md-4">
+            <div style="margin: 5px;">
+                <p-card>
+                    <div style="text-align: center;">
+                        <img alt="Datacenter" width="100" height="100" src="../../../assets/datacenter.png">
+                        <div>
+                            {{item.datacenter.name}}
+                        </div>
+                        <div>
+                            Errors: {{item.errors.length}}
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <div *ngIf="item.datacenter.inIsolation; else otherButton">
+                                <button pButton type="button" label="Deisolate" class="p-button-success p-button-outlined" (click)="IsolateDatacenter(item.datacenter.id)"></button>
+                            </div>
+                            <ng-template #otherButton>
+                                <button pButton type="button" label="Isolate" class="p-button-danger p-button-outlined" (click)="IsolateDatacenter(item.datacenter.id)"></button>
+                            </ng-template>
+                        </div>
+                    </div>
+                </p-card>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>
