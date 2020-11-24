@@ -17,9 +17,7 @@ export class TestComponent implements OnInit {
   }
 
   login() {
-    this.apiSvc.Login().subscribe(res => {
-      console.log(res);
-    })
+    this.apiSvc.Login();
   }
 
   datacenters() {
