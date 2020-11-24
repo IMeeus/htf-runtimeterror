@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private authtoken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9odGYyMDIwLnppbmRlcmxhYnMuY29tXC9hcGlcL2F1dGhcL2xvZ2luIiwiaWF0IjoxNjA2MjEzMzI1LCJleHAiOjE2MDYzOTMzMjUsIm5iZiI6MTYwNjIxMzMyNSwianRpIjoiakxyNnV4eTBnVWdHUWJpciIsInN1YiI6OCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.xyJrpxDEFFPwEUFoOn9Q4kwuPpexxgQ-3WgjxIDoFpg"
 
   constructor(
     private http: HttpClient,
@@ -24,20 +24,19 @@ export class ApiService {
     })
   }
 
-  GetDatacenters() {
+  GetDatacenters(): Observable<IGetDataCentersResponse> {
     let access_token = this.cookieSvc.get('access_token');
-    return this.http.get(`https://htf2020.zinderlabs.com/api/datacenters`, 
-    { headers: { 'Authorization':`Bearer ${access_token}` } } );
+    return this.http.get<IGetDataCentersResponse>(`https://htf2020.zinderlabs.com/api/datacenters`, 
+      { headers: { 'Authorization':`Bearer ${access_token}` } 
+    });
   }
 
-  GetErrorCenter(id){
-    let headers = new HttpHeaders();
-    headers.set('Authorization', `Bearer ${this.authtoken}` );
-    console.log(headers);
-
-    return this.http.get(`https://htf2020.zinderlabs.com/api/datacenters/${id}/errors`, {headers: { 'Authorization': `Bearer ${this.authtoken}` }});
-
-  }
+  GetErrorCenter(id: number) {​​
+    let access_token = this.cookieSvc.get('access_token');
+    return this.http.get(`https://htf2020.zinderlabs.com/api/datacenters/${​​id}​​/errors`, {​​
+      headers: {​​'Authorization': `Bearer ${access_token}​​` }​​
+    }​​);
+  }​​
 }
 
 interface ILoginResponse {
@@ -49,4 +48,21 @@ interface ILoginResponse {
 interface ILoginRequest {
   username: string,
   password: string
+}
+
+export interface IGetDataCentersResponse {
+  data: IDataCenter[];
+}
+
+export interface IDataCenter {
+  id: number,
+  name: string,
+  location: ILocation,
+  provider: string,
+  inIsolation: boolean
+}
+
+export interface ILocation {
+  lat: number,
+  long: number
 }
