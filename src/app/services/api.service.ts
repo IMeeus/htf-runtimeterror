@@ -79,7 +79,25 @@ export interface ILocation {
 }
 
 export interface IGetErrorsResponse {
-  data: IError[]
+  data: IError[],
+  meta: IErrorsMeta
+}
+
+export interface IErrorsMeta {
+  pagination: IPagination
+}
+
+export interface IPagination {
+  total: number,
+  count: number,
+  per_page: number,
+  current_page: number,
+  total_pages: number,
+  links: ILink
+}
+
+export interface ILink {
+  next: string
 }
 
 export interface IError {
